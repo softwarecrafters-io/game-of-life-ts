@@ -10,6 +10,9 @@ class World{
   }
 
   aliveNeighbors(row: number, column: number) {
+    if(this.cellMatrix[row][column - 1]?.isAlive()){
+      return 1;
+    }
     return 0;
   }
 }
@@ -31,5 +34,6 @@ describe('The World', ()=>{
 
     it('gets alive neighbors for a given coordinates', ()=>{
       expect(World.createFrom([[Dead]]).aliveNeighbors(0,0)).toBe(0);
-    })
+      expect(World.createFrom([[Alive, Dead]]).aliveNeighbors(0,1)).toBe(1);
+    });
 });
