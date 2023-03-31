@@ -10,20 +10,25 @@ class World{
   }
 
   aliveNeighbors(row: number, column: number) {
+    return this.aliveColumnNeighbors(column, row);
+  }
+
+  private aliveColumnNeighbors(column: number, row: number) {
     let aliveNeighbors = 0;
     const previousColumn = column - 1;
-    if(this.isAliveCellAt(row, previousColumn)){
+    if (previousColumn >= 0 && this.isAliveCellAt(row, previousColumn)) {
       aliveNeighbors++;
     }
     const nextColumn = column + 1;
-    if(this.isAliveCellAt(row, nextColumn)){
-      aliveNeighbors++
+    const rowLength = this.cellMatrix[row].length;
+    if (nextColumn < rowLength && this.isAliveCellAt(row, nextColumn)) {
+      aliveNeighbors++;
     }
     return aliveNeighbors;
   }
 
   private isAliveCellAt(row: number, column: number) {
-    return this.cellMatrix[row][column]?.isAlive();
+    return this.cellMatrix[row][column].isAlive();
   }
 }
 
@@ -47,5 +52,9 @@ describe('The World', ()=>{
       expect(World.createFrom([[Dead, Alive]]).aliveNeighbors(0,0)).toBe(1);
       expect(World.createFrom([[Alive, Dead]]).aliveNeighbors(0,1)).toBe(1);
       expect(World.createFrom([[Alive, Dead, Alive]]).aliveNeighbors(0,1)).toBe(2);
+      expect(World.createFrom([
+        [Alive, Dead, Alive],
+        [Alive, Alive, Alive],
+      ]).aliveNeighbors(0,1)).toBe(5);
     });
 });
