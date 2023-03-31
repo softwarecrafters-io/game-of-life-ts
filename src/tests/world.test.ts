@@ -10,7 +10,7 @@ class World{
   }
 
   aliveNeighbors(row: number, column: number) {
-    return undefined;
+    return 0;
   }
 }
 
@@ -28,7 +28,7 @@ describe('The World', ()=>{
           [Cell.create(Dead), Cell.create(Alive)],
         ]);
     });
-    
+
     it('gets alive neighbors for a given coordinates', ()=>{
       expect(World.createFrom([[Dead]]).aliveNeighbors(0,0)).toBe(0);
     })
