@@ -15,6 +15,10 @@ class Cell {
 
 
 	regenerate(numberOfNeighbors: number) {
+		if (this.status === CellStatus.Alive) {
+			if(numberOfNeighbors == 2 || numberOfNeighbors == 3)
+				return CellStatus.Alive;
+		}
 		return CellStatus.Dead;
 	}
 }
@@ -28,5 +32,6 @@ describe('In the Game of Life', ()=>{
 	it('Any live cell with two or three live neighbors lives on to the next generation', ()=>{
 		expect(new Cell(CellStatus.Alive).regenerate(2)).toBe(CellStatus.Alive);
 		expect(new Cell(CellStatus.Alive).regenerate(3)).toBe(CellStatus.Alive);
+		expect(new Cell(CellStatus.Dead).regenerate(3)).toBe(CellStatus.Dead);
 	});
 });
