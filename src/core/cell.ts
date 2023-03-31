@@ -4,20 +4,26 @@ export enum CellStatus {
 }
 
 export class Cell {
-  constructor(readonly status: CellStatus) {
-  }
-
+  constructor(readonly status: CellStatus) {}
 
   regenerate(numberOfNeighbors: number) {
     if (this.status === CellStatus.Alive) {
-      if (numberOfNeighbors == 2 || numberOfNeighbors == 3)
-        return CellStatus.Alive;
-      return CellStatus.Dead;
+      return this.statusForAliveCell(numberOfNeighbors);
     } else {
-      if (numberOfNeighbors == 3) {
-        return CellStatus.Alive;
-      }
-      return CellStatus.Dead;
+      return this.statusForDeadCell(numberOfNeighbors);
     }
+  }
+
+  private statusForAliveCell(numberOfNeighbors: number) {
+    if (numberOfNeighbors == 2 || numberOfNeighbors == 3)
+      return CellStatus.Alive;
+    return CellStatus.Dead;
+  }
+
+  private statusForDeadCell(numberOfNeighbors: number) {
+    if (numberOfNeighbors == 3) {
+      return CellStatus.Alive;
+    }
+    return CellStatus.Dead;
   }
 }
