@@ -4,8 +4,14 @@ export enum CellStatus {
 }
 
 export class Cell {
-  constructor(readonly status: CellStatus) {}
+  private constructor(readonly status: CellStatus) {}
 
+  static create(status: CellStatus) {
+    if (status === undefined || status === null) {
+      throw new Error('Invalid cell status');
+    }
+    return new Cell(status);
+  }
   regenerate(numberOfNeighbors: number) {
     const nextStatus = this.status === CellStatus.Alive
       ? this.statusForAliveCell(numberOfNeighbors)
