@@ -7,21 +7,21 @@ export class Cell {
   constructor(readonly status: CellStatus) {}
 
   regenerate(numberOfNeighbors: number) {
-    if (this.status === CellStatus.Alive) {
-      return this.statusForAliveCell(numberOfNeighbors);
-    } else {
-      return this.statusForDeadCell(numberOfNeighbors);
-    }
+    return this.status === CellStatus.Alive
+      ? this.statusForAliveCell(numberOfNeighbors)
+      : this.statusForDeadCell(numberOfNeighbors);
   }
 
   private statusForAliveCell(numberOfNeighbors: number) {
-    if (numberOfNeighbors == 2 || numberOfNeighbors == 3)
+    const isStablePopulation = numberOfNeighbors == 2 || numberOfNeighbors == 3;
+    if (isStablePopulation)
       return CellStatus.Alive;
     return CellStatus.Dead;
   }
 
   private statusForDeadCell(numberOfNeighbors: number) {
-    if (numberOfNeighbors == 3) {
+    const isFertilePopulation = numberOfNeighbors == 3;
+    if (isFertilePopulation) {
       return CellStatus.Alive;
     }
     return CellStatus.Dead;
