@@ -1,7 +1,7 @@
 import { Cell, CellStatus } from "./cell";
 
 export class World {
-  constructor(readonly cellMatrix: Cell[][]) {}
+  constructor(readonly cellMatrix: ReadonlyArray<ReadonlyArray<Cell>>) {}
 
   static createFrom(initialStatus: CellStatus[][]) {
     const cellMatrix = initialStatus.map(row => row.map(status => Cell.create(status)));
