@@ -24,4 +24,9 @@ describe('In the Game of Life', ()=>{
 		expect(new Cell(CellStatus.Alive).regenerate(1)).toBe(CellStatus.Dead);
 		expect(new Cell(CellStatus.Dead).regenerate(1)).toBe(CellStatus.Dead);
 	});
+
+	it('Any live cell with two or three live neighbors lives on to the next generation', ()=>{
+		expect(new Cell(CellStatus.Alive).regenerate(2)).toBe(CellStatus.Alive);
+		expect(new Cell(CellStatus.Alive).regenerate(3)).toBe(CellStatus.Alive);
+	});
 });
