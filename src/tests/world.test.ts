@@ -10,10 +10,20 @@ class World{
   }
 
   aliveNeighbors(row: number, column: number) {
-    if(this.cellMatrix[row][column - 1]?.isAlive()){
-      return 1;
+    let aliveNeighbors = 0;
+    const previousColumn = column - 1;
+    if(this.isAliveCellAt(row, previousColumn)){
+      aliveNeighbors++;
     }
-    return 0;
+    const nextColumn = column + 1;
+    if(this.isAliveCellAt(row, nextColumn)){
+      aliveNeighbors++
+    }
+    return aliveNeighbors;
+  }
+
+  private isAliveCellAt(row: number, column: number) {
+    return this.cellMatrix[row][column]?.isAlive();
   }
 }
 
@@ -34,6 +44,8 @@ describe('The World', ()=>{
 
     it('gets alive neighbors for a given coordinates', ()=>{
       expect(World.createFrom([[Dead]]).aliveNeighbors(0,0)).toBe(0);
+      expect(World.createFrom([[Dead, Alive]]).aliveNeighbors(0,0)).toBe(1);
       expect(World.createFrom([[Alive, Dead]]).aliveNeighbors(0,1)).toBe(1);
+      expect(World.createFrom([[Alive, Dead, Alive]]).aliveNeighbors(0,1)).toBe(2);
     });
 });
