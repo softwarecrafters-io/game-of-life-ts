@@ -10,10 +10,17 @@ class World{
   }
 
   aliveNeighbors(row: number, column: number) {
-    return this.aliveColumnNeighbors(column, row);
+    let aliveNeighbors = 0;
+    if(row + 1 < this.cellMatrix.length) {
+      if(this.isAliveCellAt(row + 1, column)) {
+        aliveNeighbors++;
+      }
+      aliveNeighbors += this.aliveColumnNeighbors(row + 1, column);
+    }
+    return aliveNeighbors + this.aliveColumnNeighbors(row, column,);
   }
 
-  private aliveColumnNeighbors(column: number, row: number) {
+  private aliveColumnNeighbors(row: number, column: number, ) {
     let aliveNeighbors = 0;
     const previousColumn = column - 1;
     if (previousColumn >= 0 && this.isAliveCellAt(row, previousColumn)) {
