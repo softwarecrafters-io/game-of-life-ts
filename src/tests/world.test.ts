@@ -8,6 +8,10 @@ class World{
     const cellMatrix = initialStatus.map(row => row.map(status => Cell.create(status)));
     return new World(cellMatrix);
   }
+
+  aliveNeighbors(row: number, column: number) {
+    return undefined;
+  }
 }
 
 describe('The World', ()=>{
@@ -22,6 +26,10 @@ describe('The World', ()=>{
       expect(world.cellMatrix).toEqual([
           [Cell.create(Dead), Cell.create(Dead)],
           [Cell.create(Dead), Cell.create(Alive)],
-        ] );
+        ]);
     });
+    
+    it('gets alive neighbors for a given coordinates', ()=>{
+      expect(World.createFrom([[Dead]]).aliveNeighbors(0,0)).toBe(0);
+    })
 });
