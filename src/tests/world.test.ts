@@ -51,5 +51,20 @@ describe('The World', ()=>{
       [Cell.create(Alive), Cell.create(Alive), Cell.create(Alive)],
       [Cell.create(Dead), Cell.create(Dead), Cell.create(Dead)],
     ]);
-  })
+  });
+
+  it('never changes for a given initial block pattern', () => {
+    const initialWorld = World.createFrom([
+      [Alive, Alive, Dead, Dead, Dead],
+      [Alive, Alive, Dead, Dead, Dead],
+      [Dead, Dead, Dead, Dead, Dead],
+      [Dead, Dead, Dead, Dead, Dead],
+      [Dead, Dead, Dead, Dead, Dead],
+    ]);
+
+    const currentWorld = initialWorld.nextGeneration().nextGeneration().nextGeneration();
+
+    expect(currentWorld).toEqual(initialWorld);
+  });
+
 });
