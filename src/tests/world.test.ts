@@ -67,4 +67,17 @@ describe('The World', ()=>{
     expect(currentWorld).toEqual(initialWorld);
   });
 
+  it('Reestablishes the same state after two generations when a given oscillator pattern is provided', () => {
+    const world = World.createFrom([
+      [Dead, Dead, Dead, Dead, Dead],
+      [Dead, Dead, Alive, Dead, Dead],
+      [Dead, Dead, Alive, Dead, Dead],
+      [Dead, Dead, Alive, Dead, Dead],
+      [Dead, Dead, Dead, Dead, Dead],
+    ]);
+
+    const result = world.nextGeneration().nextGeneration();
+
+    expect(result).toEqual(world);
+  });
 });
